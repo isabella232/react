@@ -267,6 +267,19 @@ var ReactTestUtils = {
     component.componentDidUpdate = newFn;
   },
 
+  allUpdates: function(component, callback) {
+    var oldFn = component.componentDidUpdate;
+    var newFn;
+
+    if (oldFn) {
+      newFn = createChainedFunction(oldFn, callback);
+    } else {
+      newFn = callback;
+    }
+
+    component.componentDidUpdate = newFn;
+  },
+
   /**
    * Simulates a top level event being dispatched from a raw event that occured
    * on an `Element` node.
